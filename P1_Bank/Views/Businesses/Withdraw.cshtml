@@ -1,0 +1,34 @@
+﻿@model P1_Bank.Models.Accounts.Business
+@{
+    ViewData["Title"] = "Business Withdraw";
+}
+
+<h2>Withdraw</h2>
+
+<div>
+    <h4>Business Account:  @Html.DisplayFor(model => model.Id)</h4>
+    <h5>@Html.DisplayNameFor(model => model.Balance) : @Html.DisplayFor(model => model.Balance) </h5>
+    <div class="row">
+        <div class="col-md-4">
+            @if (ViewBag.Error != null)
+            {
+                <p class="ErrorMessage"> @ViewBag.Error</p>
+            }
+
+            <hr />
+            <form asp-action="Withdraw">
+                <div class="form-group">
+                    <label asp-for="Balance" class="control-label"></label>
+                    <input type="number" name="amount" step="0.01" min="0" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Withdraw" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+

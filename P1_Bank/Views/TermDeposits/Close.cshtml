@@ -1,0 +1,66 @@
+﻿@model P1_Bank.Models.multi.TdChList
+
+@{
+    ViewData["Title"] = "Close Term Deposit";
+}
+
+<h2>Close</h2>
+
+<h4>TermDeposit</h4>
+<hr />
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Td.Id)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Td.Id)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Td.Balance)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Td.Balance)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Td.Start_date)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Td.Start_date)
+    </dd>
+    <dt>
+        Maturity
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Td.End_date)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Td.Interest)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Td.Interest)
+    </dd>
+</dl>
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="Close">
+            <input type="hidden" asp-for="Td.Id" />
+            <div class="form-group">
+                <label class="control-label">Select Checking Account to depsoit</label>
+                <select name="CheckingAccount" class="form-control">
+                    @foreach (var checking in Model.ChList)
+                    {
+                        <option value="@(checking.Id)">Account : @(checking.Id) | Balance : @(checking.Balance) </option>
+                    }
+                </select>
+            </div>
+
+            <input type="submit" value="Close" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

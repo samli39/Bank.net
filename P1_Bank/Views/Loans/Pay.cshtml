@@ -1,0 +1,60 @@
+﻿@model P1_Bank.Models.multi.ChBsList
+
+@{
+    ViewData["Title"] = "Pay Installment";
+}
+
+<h2>Pay Installment</h2>
+
+<h4>Loan</h4>
+<hr />
+<div>
+    <h4>Loan Account:  @Html.DisplayFor(model => model.Ch.Id)</h4>
+    <h5>@Html.DisplayNameFor(model => model.Ch.Balance) : @Html.DisplayFor(model => model.Ch.Balance) </h5>
+    <div class="row">
+        <div class="col-md-4">
+            @if (ViewBag.Error != null)
+            {
+                <p class="ErrorMessage"> @ViewBag.Error</p>
+            }
+            <hr />
+
+            <form asp-action="Pay">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label class="control-label">Select  Account to Transfer</label>
+
+                        <select name="Account" class="form-control" required>
+                            <option disabled>--Checking--</option>
+                            @foreach (var checking in Model.ChList)
+                            {
+                                @if (checking.Id != Model.Ch.Id)
+                                {
+                                    <option value="@(checking.Id)">Acoount : @(checking.Id) | Balance : @(checking.Balance) </option>
+                                }
+
+                            }
+                            <option disabled>--Business--</option>
+                            @foreach (var business in Model.BsList)
+                            {
+                                <option value="@(business.Id)">Acoount : @(business.Id) | Balance : @(business.Balance) </option>
+                            }
+                        </select>
+                    </div>
+                    <label asp-for="Ch.Balance" class="control-label">Amount</label>
+                    <input type="number" name="amount" step="0.01" min="0" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Pay" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

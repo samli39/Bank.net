@@ -1,0 +1,59 @@
+﻿@model IEnumerable<P1_Bank.Models.Accounts.TermDeposit>
+
+@{
+    ViewData["Title"] = "Term Deposit";
+}
+
+<h2>Term Deposit List</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Balance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Start_date)
+            </th>
+            <th>
+                Maturity
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Interest)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Start_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.End_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Interest)
+            </td>
+
+            <td class=@((item.End_date > ViewBag.Time )? "inactiveLink" : "")>
+                <a asp-action="Close" asp-route-id="@item.Id">Close</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

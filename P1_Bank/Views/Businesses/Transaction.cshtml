@@ -1,0 +1,122 @@
+﻿@model P1_Bank.Models.multi.AccountTransactions
+
+@{
+    ViewData["Title"] = "Transaction";
+    int i = 0;
+}
+
+<h2>Transaction</h2>
+
+<dl class="dl-horizontal">
+    <dt>
+        Business Account
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Ac.Id)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Ac.Balance)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Ac.Balance)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Ac.Start_date)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Ac.Start_date)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Ac.Interest)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Ac.Interest)
+    </dd>
+</dl>
+
+<div class="row">
+    <div class="col-md-4">
+        @if (ViewBag.Error != null)
+        {
+            <p class="ErrorMessage"> @ViewBag.Error</p>
+        }
+        <hr />
+        <form asp-action="Transaction">
+            <div class="form-group">
+                <label asp-for="Start" class="control-label">From</label>
+                <input asp-for="Start" class="form-control" />
+                <label asp-for="End" class="control-label">To</label>
+                <input asp-for="End" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Filter" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <h3><em><b>From @Html.DisplayFor(model => model.Start) to @Html.DisplayFor(model => model.End) </b></em></h3>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Transaction Type
+            </th>
+            <th>
+                Transaction Date
+            </th>
+            <th>
+                Transfer From
+            </th>
+            <th>
+                Transfer To
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <ol>
+            @foreach (var item in Model.List)
+            {
+
+                <tr>
+                    <td><b>@(++i).</b></td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Trans_Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Trans_date)
+                    </td>
+                    <td>
+                        @if (item.Trans_from_id != Model.Ac.Id)
+                        {
+                            @item.Trans_from.GetType().Name <span>:</span> @item.Trans_from_id
+                        }
+
+                    </td>
+                    <td>
+                        @if (item.Trans_to_id != null && item.Trans_to_id != Model.Ac.Id)
+                        {
+                            @item.Trans_to.GetType().Name <span>:</span> @item.Trans_to_id
+                        }
+
+                    </td>
+                </tr>
+            }
+        </ol>
+    </tbody>
+</table>
