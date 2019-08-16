@@ -26,6 +26,7 @@ namespace P1_Bank.Models.Accounts
         public virtual ICollection<Transactions> TransFrom { get; set; }
         public virtual ICollection<Transactions> TransTo { get; set; }
 
+        //comment for azure
         public void Deposit(decimal amount)
         {
             Balance += amount;

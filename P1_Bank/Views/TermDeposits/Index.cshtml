@@ -50,7 +50,7 @@
                 @Html.DisplayFor(modelItem => item.Interest)
             </td>
 
-            <td class=@((item.End_date > ViewBag.Time )? "inactiveLink" : "")>
+            <td class=@((item.End_date > ViewBag.Time )?"inactiveLink" : "")>
                 <a asp-action="Close" asp-route-id="@item.Id">Close</a>
             </td>
         </tr>

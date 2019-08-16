@@ -126,6 +126,8 @@ namespace Bank_p1.Controllers
         public async Task<IActionResult> Withdraw(int id, decimal amount)
         {
             var checking = await DAL.FetchAccount(id);
+            
+            
 
             if (checking == null)
             {
